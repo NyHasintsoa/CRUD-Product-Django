@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block subtitle %}Nouveau Produit{% endblock subtitle %}
+
+{% block content %}
+
+<div class="col-md-6 offset-md-3 card py-5 px-5">
+    <form action="{% url "product_insert" %}" method="post">
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+    
+        <div class="col-12 mt-5">
+            <button type="submit" class="btn btn-secondary w-100">Add Product</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block subtitle %}Liste des Catégories{% endblock subtitle %}
+
+{% block button %}
+<a href="{% url "category_insert" %}" class="btn btn-sm btn-success"><i class="fab fa-plus"></i> Nouveau Catégorie</a>
+{% endblock button %}
+
+{% block content %}
+
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-hover table-bordered table-sm border-light">
+        <caption class="fs-4">List of all categories</caption>
+        <thead>
+        <tr class="table-light text-center">
+            <th scope="col">Catégorie</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if categories %}
+                {% for category in categories %}
+                <tr class="fs-6 align-middle text-center">
+                    <td> {{ category.category }} </td>
+                    <td>
+                        <a href="{% url "category_update" category.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                        <form action="{% url "category_delete" category.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5"><h5 class="text-white" style="text-align: center;">Il n'y a pas d'enregistrement</h5></td>
+                </tr>
+            {% endif %}
+        </tbody>
+        <tfoot class="table-light fs-5">
+            <td colspan="1" class="table-active">Nombre total des catégories</td>
+            <td class="text-end">{{ count }}</td>
+        </tfoot>
+    </table>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block subtitle %}Nouveau Unité{% endblock subtitle %}
+
+{% block content %}
+
+<div class="col-md-6 offset-md-3 card py-5 px-5">
+    <form action="{% url "unite_insert" %}" method="post">
+        {% csrf_token %}
+    
+        {{ form.as_p }}
+    
+        <div class="col-12 mt-5">
+            <button type="submit" class="btn btn-secondary w-100">Add Unite</button>
+        </div>
+    </form>
+</div>
+
+{% endblock content %}

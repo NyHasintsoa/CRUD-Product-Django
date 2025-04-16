@@ -1,0 +1,69 @@
+{% extends "base.html" %}
+
+{% block subtitle %}Products List{% endblock subtitle %}
+
+{% block button %}
+<a href="{% url "product_insert" %}" class="btn btn-sm btn-success"><i class="fab fa-plus"></i> Nouveau produit</a>
+{% endblock button %}
+
+{% block content %}
+
+<div class="table-responsive">
+    <table class="table table-dark table-striped table-hover table-bordered table-sm border-light">
+        <caption class="fs-4">List of all products</caption>
+        <thead>
+        <tr class="table-light text-center">
+            <th scope="col">Designation</th>
+            <th scope="col">Prix U</th>
+            <th scope="col">unité</th>
+            <th scope="col">Catégorie</th>
+            <th scope="col">Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            {% if products %}
+                {% for product in products %}
+                <tr class="fs-6 align-middle text-center">
+                    <td> {{ product.designation }} </td>
+                    <td> {{ product.prixU }} Ar </td>
+                    <td> {{ product.unite }} </td>
+                    <td> {{ product.category }} </td>
+                    <td>
+                        <a href="{% url "product_update" product.id %}" class="btn btn-primary"><i class="fas fa-edit"></i></a>
+                        <form action="{% url "product_delete" product.id %}" method="post" class="d-inline">
+                            {% csrf_token %}
+                            <button class="btn btn-danger"><i class="fas fa-trash-alt"></i></button>
+                        </form>
+                    </td>
+                </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="5"><h5 class="text-white" style="text-align: center;">Il n'y a pas d'enregistrement</h5></td>
+                </tr>
+            {% endif %}
+        </tbody>
+        <tfoot class="table-light fs-5">
+            <td colspan="4" class="table-active">Nombre total des produits</td>
+            <td class="text-end">{{ count }}</td>
+        </tfoot>
+    </table>
+</div>
+
+<nav aria-label="Page navigation example">
+    <ul class="pagination justify-content-center">
+        {% if previousPage != 0 %}
+        <li class="page-item"><a class="page-link" href="{% url "product_list" %}?page={{ previousPage }}">Précedent</a></li>
+        {% endif %}
+        
+        {% for paginator in pagination.page_range %}
+            <li class="page-item {% if getPage == paginator %}active{% endif %}"><a class="page-link" href="{% url "product_list" %}?page={{ paginator }}">{{ paginator }}</a></li>            
+        {% endfor %}
+
+        {% if nextPage != 0 %}
+        <li class="page-item"><a class="page-link" href="{% url "product_list" %}?page={{ nextPage }}">Suivant</a></li>
+        {% endif %}
+    </ul>
+</nav>
+
+{% endblock content %}

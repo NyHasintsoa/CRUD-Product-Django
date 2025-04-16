@@ -1,0 +1,29 @@
+<nav id="sidebarMenu" class="col-md-3 col-lg-2 d-md-block bg-secondary sidebar collapse">
+    <div class="position-sticky pt-3">
+
+        <div class="d-flex justify-content-center mt-2 mb-4">
+            <div class="user-info">
+                <i class="fas fa-user-circle user-icon"></i>
+                <h3 class="text-center">{{ request.user }}</h3>
+            </div>
+        </div>
+        
+        <ul class="nav flex-column fs-5">
+            <li class="nav-item">
+                <a class="nav-link active text-white" href="{% url "product_list" %}">
+                    Produit
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url "unite_list" %}">
+                    Unité
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="{% url "category_list" %}">
+                    Catégorie
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
